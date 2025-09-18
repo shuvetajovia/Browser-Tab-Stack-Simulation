@@ -37,7 +37,41 @@
     <h3>Closed Tabs</h3>
     <div id="closedTabs" class="stack"></div>
   </div>
+</div>  
+ <!-- Psychological Stack Section -->
+<div id="psychStack">
+  <h2>Psychological Stack Demo</h2>
+  <p>Observe the image below. Then type it in reverse order (last seen first).</p>
+  
+  <!-- Your uploaded image -->
+  <div id="imageBox" style="margin:20px auto; width:200px; height:200px;">
+    <img src="school.jpeg" alt="School Image" style="width:100%; height:100%; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.3);" />
+  </div>
+
+  <input type="text" id="userInput" placeholder="Type image name..." />
+  <button id="submitBtn" onclick="submitInput()">Submit</button>
+  <div id="result"></div>
 </div>
+
+<script>
+  // For this single-image demo, we can just push the image name onto the stack
+  let psychStack = ["School"]; // LIFO stack
+  function submitInput(){
+    const input = document.getElementById('userInput').value.trim();
+    if(psychStack.length === 0){
+      document.getElementById('result').innerText = "All images recalled!";
+      return;
+    }
+    const last = psychStack.pop(); // LIFO
+    if(input.toLowerCase() === last.toLowerCase()){
+      document.getElementById('result').innerText = `Correct! "${input}" was the last seen image.`;
+    } else {
+      document.getElementById('result').innerText = `Oops! Last image was "${last}"`;
+    }
+    document.getElementById('userInput').value = '';
+  }
+</script>
+
 
 <script>
   let openStack = [];
@@ -76,3 +110,4 @@
 
 </body>
 </html>
+
