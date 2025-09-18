@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.Stack;
 
-public class BrowserTabsInteractive {
+public class BrowserTabs {
     // ANSI color codes
     public static final String RESET = "\u001B[0m";
     public static final String CYAN = "\u001B[36m";
