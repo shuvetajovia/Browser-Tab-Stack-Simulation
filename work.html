@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Browser Tab Stack Simulation — Impressive Demo</title>
+<style>
+  body { font-family: 'Segoe UI', Arial; background: #0f1724; color:#e6eef6; text-align:center; padding:20px;}
+  h1 { color: #06b6d4; margin-bottom:20px; }
+  button { margin:5px; padding:10px 20px; font-size:16px; border:none; border-radius:6px; cursor:pointer; transition:0.2s; }
+  button:hover { transform: scale(1.05); }
+  #openTabsContainer, #closedTabsContainer { display:inline-block; vertical-align:top; width:300px; margin:0 20px; }
+  #openTabsContainer h3, #closedTabsContainer h3 { color:#38bdf8; margin-bottom:10px; }
+  .stack { background:#0b1220; min-height:200px; border-radius:10px; padding:10px; box-shadow:0 4px 15px rgba(0,0,0,0.4); transition:0.3s; }
+  .tab { background:#06b6d4; color:#fff; padding:6px 10px; margin:5px 0; border-radius:6px; font-weight:600; box-shadow:0 2px 5px rgba(0,0,0,0.3); transition:0.2s; }
+  .tab:hover { transform: scale(1.05); background:#0ea5e9; }
+</style>
+</head>
+<body>
+
+<h1>Browser Tab Stack Simulation</h1>
+<p style="color:#9aa6b2; margin-bottom:20px;">Demonstrates real-time Stack usage: Open, Close, Restore Tabs (LIFO)</p>
+
+<div>
+  <button style="background:#16a34a;" onclick="openTab()">Open Tab</button>
+  <button style="background:#dc2626;" onclick="closeTab()">Close Tab</button>
+  <button style="background:#facc15; color:#000;" onclick="restoreTab()">Restore Tab</button>
+</div>
+
+<div style="margin-top:30px;">
+  <div id="openTabsContainer">
+    <h3>Open Tabs</h3>
+    <div id="openTabs" class="stack"></div>
+  </div>
+
+  <div id="closedTabsContainer">
+    <h3>Closed Tabs</h3>
+    <div id="closedTabs" class="stack"></div>
+  </div>
+</div>
+
+<script>
+  let openStack = [];
+  let closedStack = [];
+  let tabCount = 1;
+
+  function updateDisplay() {
+    const openDiv = document.getElementById('openTabs');
+    const closedDiv = document.getElementById('closedTabs');
+
+    // Visualize top of stack at the top
+    openDiv.innerHTML = openStack.slice().reverse().map(tab => `<div class="tab">${tab}</div>`).join('');
+    closedDiv.innerHTML = closedStack.slice().reverse().map(tab => `<div class="tab">${tab}</div>`).join('');
+  }
+
+  function openTab() {
+    const tabName = "Tab " + tabCount++;
+    openStack.push(tabName);
+    updateDisplay();
+  }
+
+  function closeTab() {
+    if(openStack.length === 0){ alert("No open tabs to close!"); return; }
+    const closedTab = openStack.pop();
+    closedStack.push(closedTab);
+    updateDisplay();
+  }
+
+  function restoreTab() {
+    if(closedStack.length === 0){ alert("No closed tabs to restore!"); return; }
+    const restoredTab = closedStack.pop();
+    openStack.push(restoredTab);
+    updateDisplay();
+  }
+</script>
+
+</body>
+</html>
