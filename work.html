@@ -107,7 +107,28 @@
     updateDisplay();
   }
 </script>
+  <script>
+  let psychStack = ["School"]; // last seen image
+
+  function submitInput(){
+    const input = document.getElementById('userInput').value.trim();
+    if(psychStack.length === 0){
+      document.getElementById('result').innerText = "All images recalled!";
+      return;
+    }
+
+    const last = psychStack.pop(); // LIFO
+    document.getElementById('result').innerHTML = `
+      Memory works like a <b>stack</b> (Last-In-First-Out).<br>
+      You recalled <b>${input}</b>.<br>
+      Psychology says we remember about <b>90%</b> of the last seen item → <b>${last}</b>.
+    `;
+    document.getElementById('userInput').value = '';
+  }
+</script>
+
 
 </body>
 </html>
+
 
